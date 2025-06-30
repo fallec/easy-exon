@@ -2,6 +2,8 @@ import requests
 
 from .client import BaseClient
 from .resources.objects import ObjectsResource
+from .resources.csgs import CsgsResource
+from .resources.works import WorksResource
 from .exceptions import TokenError
 
 
@@ -12,6 +14,8 @@ class MyApiClient(BaseClient):
     def __init__(self, base_url: str = BASE_URL, token: str = None):
         super().__init__(base_url, token)
         self.objects = ObjectsResource(self)
+        self.csgs = CsgsResource(self)
+        self.works = WorksResource(self)
 
 
 def get_token(username: str, password: str) -> str:
