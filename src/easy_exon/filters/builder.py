@@ -26,21 +26,17 @@ EMPTY_OBJECT_FILTER = {
 
 @dataclass
 class ObjectFilter:
-    category:       List[Category]       = field(default_factory=lambda: list(Category))
-    city:           City                 = City.MOSCOW
-    city_area:      Optional[List[CityArea]] = None
-    city_districts: Optional[List[str]]  = None
-    status:         List[Status]         = field(default_factory=lambda: list(Status))
-
-    def __post_init__(self):
-        if self.city_area is None:
-            self.city_area = AREA_BY_CITY[self.city]
+    category:       List[Category]           = field(default_factory=None)
+    city:           City                     = None
+    city_area:      Optional[List[CityArea]] = field(default_factory=None)
+    city_districts: Optional[List[str]]      = field(default_factory=None)
+    status:         List[Status]             = field(default_factory=None)
 
     def to_dict(self) -> dict:
         return {
-            "category":      [c.value for c in self.category],
-            "city":          self.city.value,
-            "cityArea":      [a.value for a in self.city_area],
-            "cityDistricts": self.city_districts,
-            "status":        [s.value for s in self.status],
+            "category":      [c.value for c in self.category] if self.category else None,
+            "city":          self.city.value if self.city else None,
+            "cityArea":      [a.value for a in self.city_area] if self.city_area else None,
+            "cityDistricts": self.city_districts if self.city_districts else None,
+            "status":        [s.value for s in self.status] if self.status else None,
         }

@@ -109,8 +109,8 @@ class WorkModel(BaseModel):
     deviationByBaseEndDate: Optional[float] = None
     projectedCompletionDateDeviation: Optional[int] = None
     remainingToProjectedCompletionDate: Optional[int] = None
-    tempByEndDate: Optional[int] = None
-    tempByBaseEndDate: Optional[int] = None
+    tempByEndDate: Optional[float] = None
+    tempByBaseEndDate: Optional[float] = None
 
     # ─── Денежные метрики (опционально все Decimal/float) ───
     totalCost: Optional[Decimal] = None
