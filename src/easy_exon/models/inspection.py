@@ -41,9 +41,9 @@ class InspectionModel(BaseModel):
     result: Optional[str] = None             # итог/заключение инспекции
 
     # ─── Даты (Unix-ms → datetime) ───
-    creationDate: Optional[str] = None
-    startDate: Optional[str] = None
-    endDate: Optional[str] = None
+    creationDate: Optional[int] = None
+    startDate: Optional[int] = None
+    endDate: Optional[int] = None
     removalTerm: Optional[str] = None
     removalDate: Optional[str] = None
     removeResponsibleDate: Optional[str] = None

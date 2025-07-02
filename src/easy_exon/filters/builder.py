@@ -26,11 +26,11 @@ EMPTY_OBJECT_FILTER = {
 
 @dataclass
 class ObjectFilter:
-    category:       List[Category]           = field(default_factory=None)
+    category:       List[Category]           = field(default_factory=list)
     city:           City                     = None
-    city_area:      Optional[List[CityArea]] = field(default_factory=None)
-    city_districts: Optional[List[str]]      = field(default_factory=None)
-    status:         List[Status]             = field(default_factory=None)
+    city_area:      Optional[List[CityArea]] = field(default_factory=list)
+    city_districts: Optional[List[str]]      = field(default_factory=list)
+    status:         List[Status]             = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return {
