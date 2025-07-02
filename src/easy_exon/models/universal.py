@@ -1,4 +1,3 @@
-from datetime import datetime
 from typing import Optional
 
 from pydantic import BaseModel
@@ -14,7 +13,7 @@ class UserPreview(BaseModel):
     organizationId: Optional[str] = None
     organizationName: Optional[str] = None
     position: Optional[str] = None
-    viewedAt: Optional[datetime] = None
+    viewedAt: Optional[str] = None
 
     class Config:
         extra = "allow"

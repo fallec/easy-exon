@@ -1,7 +1,6 @@
-from datetime import datetime
 from typing import List, Optional
 
-from pydantic import BaseModel, Field, ConfigDict, field_validator
+from pydantic import BaseModel, Field, ConfigDict
 
 from .universal import UserPreview, PirCipher, FileAttachment
 
@@ -20,7 +19,7 @@ class RemarkModel(BaseModel):
     model_config = ConfigDict(
         extra="allow",              # пропускать неописанные поля
         str_strip_whitespace=True,  # авто-trim строк
-        orm_mode=True,
+        from_attributes=True,
     )
 
     # ─── Идентификаторы ───
@@ -28,22 +27,10 @@ class RemarkModel(BaseModel):
     projectId: Optional[str] = None
 
     # ─── Датовые метки ───
-    creationDate: Optional[datetime] = None
-    removalTerm: Optional[datetime] = None
-    removalDate: Optional[datetime] = None
-    removeResponsibleDate: Optional[datetime] = None
-
-    # ► конвертируем миллисекунды UNIX → datetime
-    @field_validator(
-        "creationDate",
-        "removalTerm",
-        "removalDate",
-        "removeResponsibleDate",
-        mode="before",
-    )
-    @classmethod
-    def _ts_to_dt(cls, v):
-        return datetime.utcfromtimestamp(v / 1000) if isinstance(v, int) else v
+    creationDate: Optional[str] = None
+    removalTerm: Optional[str] = None
+    removalDate: Optional[str] = None
+    removeResponsibleDate: Optional[str] = None
 
     # ─── Участники ───
     authorUserId: Optional[str] = None

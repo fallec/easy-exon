@@ -1,4 +1,3 @@
-from datetime import date
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
@@ -18,7 +17,7 @@ class CsgModel(BaseModel):
     is4dGraph: Optional[bool] = None
     isLaborCosts: Optional[bool] = None
 
-    createdAt: Optional[date] = None
+    createdAt: Optional[str] = None
     createdBy: Optional[str] = None
 
     rootEditors: List[str] = Field(default_factory=list)
@@ -28,5 +27,5 @@ class CsgModel(BaseModel):
 
     class Config:
         extra = "allow"
-        anystr_strip_whitespace = True
-        orm_mode = True
+        str_strip_whitespace = True
+        from_attributes = True

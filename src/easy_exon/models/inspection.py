@@ -1,9 +1,18 @@
-from datetime import datetime
 from typing import List, Optional
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field
 
 from .universal import UserPreview, PirCipher, FileAttachment
+
+
+# ────────────────────────── Вспомогательные модели ──────────────────────────
+
+
+class RemarkLink(BaseModel):
+    """Краткая ссылка на замечание, вошедшее в инспекцию."""
+    id: str                                  # в API бывает числом или строкой
+    isDeletable: Optional[bool] = None
+    deletionRefuseReason: Optional[str] = None
 
 
 # ────────────────────────── Основная модель ──────────────────────────
@@ -11,10 +20,10 @@ from .universal import UserPreview, PirCipher, FileAttachment
 
 class InspectionModel(BaseModel):
     """
-    Замечание / уведомление тех. надзора.
+    Инспекция / акт строительного контроля.
 
     * `id` — обязательный целочисленный идентификатор.
-    * Все остальные поля опциональны.
+    * Все остальные поля опциональны и допускают «лишние» ключи (`extra="allow"`).
     """
 
     # ─── Обязательные ───
@@ -25,63 +34,66 @@ class InspectionModel(BaseModel):
     number: Optional[str] = None
     buildingObject: Optional[str] = None
     location: Optional[str] = None
-    workType: Optional[str] = None
+    workType: Optional[str] = None           # для одного типа работ
+    workTypes: List[str] = Field(default_factory=list)  # для множественных типов
     description: Optional[str] = None
-    status: Optional[str] = None
+    status: Optional[str] = None             # OPEN / HAVE_REMARKS / CLOSED …
+    result: Optional[str] = None             # итог/заключение инспекции
 
-    # ─── Даты (Unix-мс → datetime) ───
-    creationDate: Optional[datetime] = None
-    removalTerm: Optional[datetime] = None
-    removalDate: Optional[datetime] = None
-    removeResponsibleDate: Optional[datetime] = None
-
-    @field_validator(
-        'creationDate',
-        'removalTerm',
-        'removalDate',
-        'removeResponsibleDate',
-        mode='before',               # вызываем ДО базовой валидации
-    )
-    @classmethod
-    def _ts_to_dt(cls, v):
-        """Преобразуем миллисекунды UNIX-времени ⇒ datetime (UTC)."""
-        if isinstance(v, int):
-            return datetime.utcfromtimestamp(v / 1000)
-        return v
+    # ─── Даты (Unix-ms → datetime) ───
+    creationDate: Optional[str] = None
+    startDate: Optional[str] = None
+    endDate: Optional[str] = None
+    removalTerm: Optional[str] = None
+    removalDate: Optional[str] = None
+    removeResponsibleDate: Optional[str] = None
 
     # ─── Пользователи ───
     authorUserId: Optional[str] = None
     responsibleUserId: Optional[str] = None
+    responsibleBuilderUserId: Optional[str] = None
     creatorUserId: Optional[str] = None
+
     notifyUserIds: List[str] = Field(default_factory=list)
+    participantUserIds: List[str] = Field(default_factory=list)
 
     authorUser: Optional[UserPreview] = None
     responsibleUser: Optional[UserPreview] = None
+    responsibleBuilder: Optional[UserPreview] = None
     creatorUser: Optional[UserPreview] = None
     notifyUsers: List[UserPreview] = Field(default_factory=list)
+    participantUsers: List[UserPreview] = Field(default_factory=list)
 
-    # ─── Доп. поля логики ───
+    # ─── Логические флаги ───
     priorityType: Optional[str] = None
     attentionIndicator: Optional[str] = None
     hasComments: Optional[bool] = None
     isSigned: Optional[bool] = None
     isSend: Optional[bool] = None
     createdFromBus: Optional[bool] = None
+
+    # ─── Документы и ссылки ───
+    pirCiphers: List[PirCipher] = Field(default_factory=list)
+    descriptionAttachments: List[FileAttachment] = Field(default_factory=list)
+    responsibleForCorrectingAttachments: List[FileAttachment] = Field(default_factory=list)
+
+    # ─── Журналы / инспекции / замечания ───
+    generalJournalIds: List[str] = Field(default_factory=list)
     inspectionIds: List[int] = Field(default_factory=list)
     inspectionNumbers: List[str] = Field(default_factory=list)
     inspectionCount: Optional[str] = None
-    structureElement: Optional[str] = None
-    causes: List[str] = Field(default_factory=list)
-    refuseReason: Optional[str] = None
-    requestRemovalRemark: Optional[str] = None
 
-    # ─── Коллекции вложенных объектов ───
-    pirCiphers: List[PirCipher] = Field(default_factory=list)
-    descriptionAttachments: List[FileAttachment] = Field(default_factory=list)
-    generalJournalIds: List[str] = Field(default_factory=list)
-    responsibleForCorrectingAttachments: List[FileAttachment] = Field(default_factory=list)
+    remarks: List[RemarkLink] = Field(default_factory=list)
+    remarkNumbers: List[str] = Field(default_factory=list)
+    remarkCount: Optional[str] = None
+
+    # ─── Причины, нормативы, структура ───
+    causes: List[str] = Field(default_factory=list)
+    structureElement: Optional[str] = None
+    requestRemovalRemark: Optional[str] = None
+    refuseReason: Optional[str] = None
 
     class Config:
         extra = "allow"
-        anystr_strip_whitespace = True
-        orm_mode = True
+        str_strip_whitespace = True
+        from_attributes = True

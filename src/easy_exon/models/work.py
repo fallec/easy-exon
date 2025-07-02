@@ -1,4 +1,3 @@
-from datetime import date, datetime
 from decimal import Decimal
 from typing import Any, Dict, List, Optional
 
@@ -7,7 +6,7 @@ from pydantic import BaseModel, Field
 
 class LaborCost(BaseModel):
     """Сводная запись о план-фактных трудозатратах (список в `laborCosts`)."""
-    date: date
+    date: str
     planWorkers: int
     factWorkers: Optional[int] = None
     delta: Optional[int] = None
@@ -16,10 +15,10 @@ class LaborCost(BaseModel):
 class CompletedVolume(BaseModel):
     """Фиксация выполненного объёма работ."""
     volume: Decimal
-    date: date
+    date: str
     author: str
     comment: Optional[str] = None
-    modifiedAt: datetime
+    modifiedAt: str
     volumeId: str
 
 
@@ -27,21 +26,21 @@ class PlanLaborCost(BaseModel):
     """Планируемое количество рабочих на диапазон дат."""
     id: str
     numberOfWorkers: int
-    startDate: date
-    endDate: date
-    modifiedAt: datetime
+    startDate: str
+    endDate: str
+    modifiedAt: str
 
 
 class FactLaborCost(BaseModel):
     """Фактические трудозатраты за день (workers * hours)."""
     id: str
     numberOfWorkers: int
-    date: date
+    date: str
     duration: int
     profession: Optional[str] = None
     author: str
     timeSpent: int
-    modifiedAt: datetime
+    modifiedAt: str
 
 
 class WorkModel(BaseModel):
@@ -66,17 +65,17 @@ class WorkModel(BaseModel):
     responsible: List[str] = Field(default_factory=list)
 
     # ─── Базовые даты ───
-    start_date: Optional[date] = None
-    end_date: Optional[date] = None
-    fact_start_date: Optional[date] = None
-    fact_end_date: Optional[date] = None
-    base_start_date: Optional[date] = None
-    base_end_date: Optional[date] = None
-    contract_start_date: Optional[date] = None
-    contract_end_date: Optional[date] = None
-    min_start_date: Optional[date] = None
-    deadline: Optional[date] = None
-    projectedCompletionDate: Optional[date] = None
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
+    fact_start_date: Optional[str] = None
+    fact_end_date: Optional[str] = None
+    base_start_date: Optional[str] = None
+    base_end_date: Optional[str] = None
+    contract_start_date: Optional[str] = None
+    contract_end_date: Optional[str] = None
+    min_start_date: Optional[str] = None
+    deadline: Optional[str] = None
+    projectedCompletionDate: Optional[str] = None
 
     # ─── Производственные показатели ───
     planVolume: Optional[Decimal] = None
@@ -146,5 +145,5 @@ class WorkModel(BaseModel):
 
     class Config:
         extra = "allow"
-        anystr_strip_whitespace = True
-        orm_mode = True
+        str_strip_whitespace = True
+        from_attributes = True

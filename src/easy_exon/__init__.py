@@ -1,12 +1,14 @@
 import requests
 
 from .client import BaseClient
+from .exceptions import TokenError
 from .resources.objects import ObjectsResource
 from .resources.csgs import CsgsResource
 from .resources.works import WorksResource
 from .resources.inspections import InspectionsResource
 from .resources.remarks import RemarksResource
-from .exceptions import TokenError
+from .resources.organizations import OrganizationsResource
+from .resources.users import UsersResource
 
 
 BASE_URL = "https://exon.exonproject.ru/"
@@ -20,6 +22,8 @@ class MyApiClient(BaseClient):
         self.works = WorksResource(self)
         self.inspections = InspectionsResource(self)
         self.remarks = RemarksResource(self)
+        self.organizations = OrganizationsResource(self)
+        self.users = UsersResource(self)
 
 
 def get_token(username: str, password: str) -> str:

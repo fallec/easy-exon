@@ -28,3 +28,6 @@ class BaseClient:
 
     def delete(self, path: str, **kwargs):
         return self._request("DELETE", path, **kwargs)
+    
+    def patch(self, path: str, **kwargs):
+        return self._request("PATCH", path, **kwargs)
