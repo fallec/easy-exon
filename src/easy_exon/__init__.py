@@ -4,6 +4,8 @@ from .client import BaseClient
 from .resources.objects import ObjectsResource
 from .resources.csgs import CsgsResource
 from .resources.works import WorksResource
+from .resources.inspections import InspectionsResource
+from .resources.remarks import RemarksResource
 from .exceptions import TokenError
 
 
@@ -16,6 +18,8 @@ class MyApiClient(BaseClient):
         self.objects = ObjectsResource(self)
         self.csgs = CsgsResource(self)
         self.works = WorksResource(self)
+        self.inspections = InspectionsResource(self)
+        self.remarks = RemarksResource(self)
 
 
 def get_token(username: str, password: str) -> str:

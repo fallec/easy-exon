@@ -1,0 +1,137 @@
+from datetime import datetime
+from typing import List, Optional
+
+from pydantic import BaseModel, Field, ConfigDict, field_validator
+
+
+# ────────────────────────────── Вспомогательные модели ──────────────────────────────
+
+
+class UserPreview(BaseModel):
+    """Краткая карточка пользователя (автор, ответственный, получатель уведомлений)."""
+
+    id: str
+    firstName: Optional[str] = None
+    middleName: Optional[str] = None
+    lastName: Optional[str] = None
+    organizationId: Optional[str] = None
+    organizationName: Optional[str] = None
+    position: Optional[str] = None
+    viewedAt: Optional[datetime] = None
+
+    model_config = ConfigDict(extra="allow")          # сохраняем неожиданные поля
+
+
+class PirCipher(BaseModel):
+    """Шифр проектной / рабочей документации с метаданными."""
+
+    cipher: str
+    cipherType: Optional[str] = None
+    change: Optional[int] = None
+    sectionName: Optional[str] = None
+    name: Optional[str] = None
+    fileId: Optional[str] = None
+    initiatorOrganizationId: Optional[str] = None
+    initiatorUserId: Optional[str] = None
+    status: Optional[str] = None
+    documentId: Optional[str] = None
+
+    model_config = ConfigDict(extra="allow")
+
+
+class FileAttachment(BaseModel):
+    """Любое прикреплённое к замечанию вложение (фото, PDF, скан)."""
+
+    type: str                    # FILE, IMAGE, LINK …
+    name: str
+    link: str
+    qrFileId: Optional[str] = None
+    version: Optional[str] = None
+    change: Optional[str] = None
+    signed: Optional[bool] = None
+
+
+# ────────────────────────────── Основная модель замечания ──────────────────────────────
+
+
+class RemarkModel(BaseModel):
+    """
+    Замечание строительного контроля / технадзора.
+
+    `id` — единственное обязательное поле, все прочие считаются опциональными.
+    """
+
+    # базовая конфигурация (Pydantic v2)
+    model_config = ConfigDict(
+        extra="allow",              # пропускать неописанные поля
+        str_strip_whitespace=True,  # авто-trim строк
+        orm_mode=True,
+    )
+
+    # ─── Идентификаторы ───
+    id: int
+    projectId: Optional[str] = None
+
+    # ─── Датовые метки ───
+    creationDate: Optional[datetime] = None
+    removalTerm: Optional[datetime] = None
+    removalDate: Optional[datetime] = None
+    removeResponsibleDate: Optional[datetime] = None
+
+    # ► конвертируем миллисекунды UNIX → datetime
+    @field_validator(
+        "creationDate",
+        "removalTerm",
+        "removalDate",
+        "removeResponsibleDate",
+        mode="before",
+    )
+    @classmethod
+    def _ts_to_dt(cls, v):
+        return datetime.utcfromtimestamp(v / 1000) if isinstance(v, int) else v
+
+    # ─── Участники ───
+    authorUserId: Optional[str] = None
+    responsibleUserId: Optional[str] = None
+    creatorUserId: Optional[str] = None
+    notifyUserIds: List[str] = Field(default_factory=list)
+
+    authorUser: Optional[UserPreview] = None
+    responsibleUser: Optional[UserPreview] = None
+    creatorUser: Optional[UserPreview] = None
+    notifyUsers: List[UserPreview] = Field(default_factory=list)
+
+    # ─── Основные реквизиты ───
+    number: Optional[str] = None
+    buildingObject: Optional[str] = None
+    location: Optional[str] = None
+    workType: Optional[str] = None
+    description: Optional[str] = None
+    status: Optional[str] = None                    # OPEN / REMOVED / CLOSED …
+    priorityType: Optional[str] = None              # REGULAR / HIGH …
+
+    # ─── Причины и нормативы ───
+    causes: List[str] = Field(default_factory=list)
+
+    # ─── Документы ───
+    pirCiphers: List[PirCipher] = Field(default_factory=list)
+    descriptionAttachments: List[FileAttachment] = Field(default_factory=list)
+    responsibleForCorrectingAttachments: List[FileAttachment] = Field(default_factory=list)
+
+    # ─── Журналы, инспекции ───
+    generalJournalIds: List[str] = Field(default_factory=list)
+    inspectionIds: List[int] = Field(default_factory=list)
+    inspectionNumbers: List[str] = Field(default_factory=list)
+    inspectionCount: Optional[str] = None
+
+    # ─── Флаги / индикаторы ───
+    isSigned: Optional[bool] = None
+    isSend: Optional[bool] = None
+    createdFromBus: Optional[bool] = None
+    attentionIndicator: Optional[str] = None
+    hasComments: Optional[bool] = None
+
+    # ─── Прочее ───
+    structureElement: Optional[str] = None
+    requestRemovalRemark: Optional[str] = None
+    refuseReason: Optional[str] = None

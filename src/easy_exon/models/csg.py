@@ -27,5 +27,6 @@ class CsgModel(BaseModel):
     visibleListOrgId: List[str] = Field(default_factory=list)
 
     class Config:
+        extra = "allow"
         anystr_strip_whitespace = True
         orm_mode = True

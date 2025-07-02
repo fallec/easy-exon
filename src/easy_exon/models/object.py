@@ -17,6 +17,7 @@ class ObjectAddressModel(BaseModel):
 
     model_config = {
         "populate_by_name": True,
+        "extra": "allow",
     }
 
 
@@ -34,4 +35,5 @@ class ObjectModel(BaseModel):
 
     model_config = {
         "populate_by_name": True,
+        "extra": "allow",
     }
