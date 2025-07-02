@@ -3,52 +3,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel, Field, ConfigDict, field_validator
 
-
-# ────────────────────────────── Вспомогательные модели ──────────────────────────────
-
-
-class UserPreview(BaseModel):
-    """Краткая карточка пользователя (автор, ответственный, получатель уведомлений)."""
-
-    id: str
-    firstName: Optional[str] = None
-    middleName: Optional[str] = None
-    lastName: Optional[str] = None
-    organizationId: Optional[str] = None
-    organizationName: Optional[str] = None
-    position: Optional[str] = None
-    viewedAt: Optional[datetime] = None
-
-    model_config = ConfigDict(extra="allow")          # сохраняем неожиданные поля
-
-
-class PirCipher(BaseModel):
-    """Шифр проектной / рабочей документации с метаданными."""
-
-    cipher: str
-    cipherType: Optional[str] = None
-    change: Optional[int] = None
-    sectionName: Optional[str] = None
-    name: Optional[str] = None
-    fileId: Optional[str] = None
-    initiatorOrganizationId: Optional[str] = None
-    initiatorUserId: Optional[str] = None
-    status: Optional[str] = None
-    documentId: Optional[str] = None
-
-    model_config = ConfigDict(extra="allow")
-
-
-class FileAttachment(BaseModel):
-    """Любое прикреплённое к замечанию вложение (фото, PDF, скан)."""
-
-    type: str                    # FILE, IMAGE, LINK …
-    name: str
-    link: str
-    qrFileId: Optional[str] = None
-    version: Optional[str] = None
-    change: Optional[str] = None
-    signed: Optional[bool] = None
+from .universal import UserPreview, PirCipher, FileAttachment
 
 
 # ────────────────────────────── Основная модель замечания ──────────────────────────────
