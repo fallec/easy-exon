@@ -1,22 +1,15 @@
 from typing import List, Optional
 
-from pydantic import BaseModel, Field, ConfigDict, field_validator
-
-
-# ────────────────────────── Вспомогательные модели ──────────────────────────
+from pydantic import BaseModel, Field, ConfigDict
 
 
 class OrgUserLink(BaseModel):
-    """Связь «организация — пользователь» (роль, отдел, должность)."""
-
     userId: str
     department: Optional[str] = None
     position: Optional[str] = None
 
 
 class AddressData(BaseModel):
-    """Нормализованный адрес из DaData / ФИАС."""
-
     source: Optional[str] = None
     postalCode: Optional[str] = None
     regionKladrId: Optional[str] = None
@@ -39,12 +32,7 @@ class AddressData(BaseModel):
     model_config = ConfigDict(extra="allow")
 
 
-# ────────────────────────── Снимок организации (для history) ──────────────────────────
-
-
 class OrganizationSnapshot(BaseModel):
-    """Историческое состояние организации (без вложенной history)."""
-
     id: str
     name: str
     shortName: Optional[str] = None
@@ -76,17 +64,7 @@ class OrganizationSnapshot(BaseModel):
     model_config = ConfigDict(extra="allow")
 
 
-# ────────────────────────── Основная модель организации ──────────────────────────
-
-
 class OrganizationModel(BaseModel):
-    """
-    Организация из справочника EXON.
-
-    * `id`, `name` обязательны.
-    * Остальные поля опциональны; разрешены дополнительные ключи (`extra="allow"`).
-    """
-
     id: str
     name: str
     shortName: Optional[str] = None

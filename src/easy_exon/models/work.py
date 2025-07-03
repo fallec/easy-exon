@@ -5,7 +5,6 @@ from pydantic import BaseModel, Field
 
 
 class LaborCost(BaseModel):
-    """Сводная запись о план-фактных трудозатратах (список в `laborCosts`)."""
     date: str
     planWorkers: int
     factWorkers: Optional[int] = None
@@ -13,7 +12,6 @@ class LaborCost(BaseModel):
 
 
 class CompletedVolume(BaseModel):
-    """Фиксация выполненного объёма работ."""
     volume: Decimal
     date: str
     author: str
@@ -23,7 +21,6 @@ class CompletedVolume(BaseModel):
 
 
 class PlanLaborCost(BaseModel):
-    """Планируемое количество рабочих на диапазон дат."""
     id: str
     numberOfWorkers: int
     startDate: str
@@ -32,7 +29,6 @@ class PlanLaborCost(BaseModel):
 
 
 class FactLaborCost(BaseModel):
-    """Фактические трудозатраты за день (workers * hours)."""
     id: str
     numberOfWorkers: int
     date: str
@@ -44,27 +40,21 @@ class FactLaborCost(BaseModel):
 
 
 class WorkModel(BaseModel):
-    """Расширенная модель работы/этапа проекта."""
-
-    # ─── Минимум ───
     id: str
 
-    # ─── Структура и положение в иерархии ───
     parent: Optional[str] = None
     fullPath: Optional[str] = None
     name: Optional[str] = None
-    type: Optional[str] = None                # WORK / TOTAL_WORK / …
+    type: Optional[str] = None
     graphId: Optional[str] = None
     code: Optional[int] = None
     sortOrder: Optional[int] = None
     categoryId: Optional[str] = None
 
-    # ─── Организации и участники ───
     executorOrgId: Optional[str] = None
     editors: List[str] = Field(default_factory=list)
     responsible: List[str] = Field(default_factory=list)
 
-    # ─── Базовые даты ───
     start_date: Optional[str] = None
     end_date: Optional[str] = None
     fact_start_date: Optional[str] = None
@@ -77,7 +67,6 @@ class WorkModel(BaseModel):
     deadline: Optional[str] = None
     projectedCompletionDate: Optional[str] = None
 
-    # ─── Производственные показатели ───
     planVolume: Optional[Decimal] = None
     remainingVolume: Optional[Decimal] = None
     remainingPrice: Optional[Decimal] = None
@@ -88,12 +77,10 @@ class WorkModel(BaseModel):
     unitPrice: Optional[Decimal] = None
     profession: Optional[Dict[str, int]] = None
 
-    # ─── Длительности ───
     durationByDates: Optional[int] = None
     durationByBaseDates: Optional[int] = None
     durationByFactDates: Optional[int] = None
 
-    # ─── Прогресс и отклонения ───
     progressByDates: Optional[float] = None
     progressByBaseDates: Optional[float] = None
     actualProgress: Optional[float] = None
@@ -111,7 +98,6 @@ class WorkModel(BaseModel):
     tempByEndDate: Optional[float] = None
     tempByBaseEndDate: Optional[float] = None
 
-    # ─── Денежные метрики (опционально все Decimal/float) ───
     totalCost: Optional[Decimal] = None
     currentCost: Optional[Decimal] = None
     currentCostProportion: Optional[float] = None
@@ -124,19 +110,16 @@ class WorkModel(BaseModel):
     planFactCostDeviationByCompletionByDates: Optional[Decimal] = None
     planFactCostProportionByCompletionByDates: Optional[float] = None
 
-    # ─── BIM / документы ───
     bimModelIds: Optional[List[str]] = None
     bimModel: Optional[Any] = None
     documents: List[Any] = Field(default_factory=list)
 
-    # ─── Коллекции вложенных структур ───
     laborCosts: List[LaborCost] = Field(default_factory=list)
     planLaborCosts: List[PlanLaborCost] = Field(default_factory=list)
     factLaborCosts: List[FactLaborCost] = Field(default_factory=list)
     completedVolumes: List[CompletedVolume] = Field(default_factory=list)
     planVolumes: List[Any] = Field(default_factory=list)
 
-    # ─── Прочее ───
     backlogStatus: Optional[int] = None
     fixedPlanLabor: Optional[bool] = None
     errors: Dict[str, Any] = Field(default_factory=dict)

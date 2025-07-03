@@ -4,8 +4,6 @@ from pydantic import BaseModel
 
 
 class UserPreview(BaseModel):
-    """Краткая информация о пользователе (автор, ответственный, получатель)."""
-
     id: str
     firstName: Optional[str] = None
     middleName: Optional[str] = None
@@ -20,8 +18,6 @@ class UserPreview(BaseModel):
 
 
 class PirCipher(BaseModel):
-    """Шифр ПИР / СП с метаданными."""
-
     cipher: str
     cipherType: Optional[str] = None
     sectionName: Optional[str] = None
@@ -38,8 +34,6 @@ class PirCipher(BaseModel):
 
 
 class FileAttachment(BaseModel):
-    """Файл-вложение (описание, корректировка, комментарий и др.)."""
-
     type: str
     name: str
     link: str
