@@ -1,6 +1,6 @@
 from typing import List
 
-from ..models.act import ActModel, ActDetailModel
+from ...models.itd.act import ActModel, ActDetailModel
 
 
 class ActsResource:

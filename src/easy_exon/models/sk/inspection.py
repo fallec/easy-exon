@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
-from .universal import UserPreview, PirCipher, FileAttachment
+from .common import UserPreview, PirCipher, FileAttachment
 
 
 class RemarkLink(BaseModel):

@@ -1,6 +1,6 @@
 from typing import List
 
-from ..models.remark import RemarkModel
+from ...models.sk.remark import RemarkModel
 
 class RemarksResource:
     def __init__(self, client):
