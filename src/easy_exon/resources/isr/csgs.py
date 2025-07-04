@@ -1,6 +1,6 @@
 from typing import List
 
-from ..models.csg import CsgModel
+from ...models.isr.csg import CsgModel
 
 class CsgsResource:
     def __init__(self, client):

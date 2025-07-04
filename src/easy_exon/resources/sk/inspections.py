@@ -1,6 +1,6 @@
 from typing import List
 
-from ..models.inspection import InspectionModel
+from ...models.sk.inspection import InspectionModel
 
 class InspectionsResource:
     def __init__(self, client):

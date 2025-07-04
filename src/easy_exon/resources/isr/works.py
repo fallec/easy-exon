@@ -1,6 +1,6 @@
 from typing import List
 
-from ..models.work import WorkModel
+from ...models.isr.work import WorkModel
 
 DEFAULT_FILTER_WORKS = {
     "dates":{

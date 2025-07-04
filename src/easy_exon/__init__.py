@@ -3,13 +3,13 @@ import requests
 from .client import BaseClient
 from .exceptions import TokenError
 from .resources.objects import ObjectsResource
-from .resources.csgs import CsgsResource
-from .resources.works import WorksResource
-from .resources.inspections import InspectionsResource
-from .resources.remarks import RemarksResource
+from .resources.isr.csgs import CsgsResource
+from .resources.isr.works import WorksResource
+from .resources.sk.inspections import InspectionsResource
+from .resources.sk.remarks import RemarksResource
 from .resources.organizations import OrganizationsResource
 from .resources.users import UsersResource
-from .resources.acts import ActsResource
+from .resources.itd.acts import ActsResource
 
 
 BASE_URL = "https://exon.exonproject.ru/"
