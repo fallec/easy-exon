@@ -9,6 +9,7 @@ from .resources.inspections import InspectionsResource
 from .resources.remarks import RemarksResource
 from .resources.organizations import OrganizationsResource
 from .resources.users import UsersResource
+from .resources.acts import ActsResource
 
 
 BASE_URL = "https://exon.exonproject.ru/"
@@ -24,6 +25,7 @@ class MyApiClient(BaseClient):
         self.remarks = RemarksResource(self)
         self.organizations = OrganizationsResource(self)
         self.users = UsersResource(self)
+        self.acts = ActsResource(self)
 
 
 def get_token(username: str, password: str) -> str:
