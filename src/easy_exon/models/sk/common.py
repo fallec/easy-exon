@@ -41,3 +41,6 @@ class FileAttachment(BaseModel):
     version: Optional[str] = None
     change: Optional[str] = None
     signed: Optional[bool] = None
+
+    class Config:
+        extra = "allow"

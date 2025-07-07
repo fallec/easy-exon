@@ -7,6 +7,9 @@ from .resources.isr.csgs import CsgsResource
 from .resources.isr.works import WorksResource
 from .resources.sk.inspections import InspectionsResource
 from .resources.sk.remarks import RemarksResource
+from .resources.sk.documents import DocumentsResource
+from .resources.sk.journals import JournalsResource
+from .resources.sk.registries import RegistriesResource
 from .resources.organizations import OrganizationsResource
 from .resources.users import UsersResource
 from .resources.itd.acts import ActsResource
@@ -23,6 +26,9 @@ class MyApiClient(BaseClient):
         self.works = WorksResource(self)
         self.inspections = InspectionsResource(self)
         self.remarks = RemarksResource(self)
+        self.documents = DocumentsResource(self)
+        self.journals = JournalsResource(self)
+        self.registries = RegistriesResource(self)
         self.organizations = OrganizationsResource(self)
         self.users = UsersResource(self)
         self.acts = ActsResource(self)

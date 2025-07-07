@@ -10,6 +10,9 @@ class RemarkLink(BaseModel):
     isDeletable: Optional[bool] = None
     deletionRefuseReason: Optional[str] = None
 
+    class Config:
+        extra = "allow"
+
 
 class InspectionModel(BaseModel):
     id: int

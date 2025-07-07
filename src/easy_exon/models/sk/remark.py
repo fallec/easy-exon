@@ -15,10 +15,10 @@ class RemarkModel(BaseModel):
     id: int
     projectId: Optional[str] = None
 
-    creationDate: Optional[str] = None
-    removalTerm: Optional[str] = None
-    removalDate: Optional[str] = None
-    removeResponsibleDate: Optional[str] = None
+    creationDate: Optional[int] = None
+    removalTerm: Optional[int] = None
+    removalDate: Optional[int] = None
+    removeResponsibleDate: Optional[int] = None
 
     authorUserId: Optional[str] = None
     responsibleUserId: Optional[str] = None
