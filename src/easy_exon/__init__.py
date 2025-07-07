@@ -60,7 +60,6 @@ class MyApiClient(BaseClient):
         self.tasks = TasksResource(self)
 
         #pir
-        self.docs = DocsResource(self)
         self.project_docs = ProjectDocsResource(self)
         self.work_docs = WorkDocsResource(self)
 
