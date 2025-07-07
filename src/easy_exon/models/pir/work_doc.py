@@ -1,27 +1,24 @@
 from datetime import datetime, date
 from typing import Optional, List
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict
 
 
 class DocContentModel(BaseModel):
-    # --- идентификация / версия ---
     id: str
     sectionId: Optional[str] = None
     changeSetId: Optional[str] = None
     createdAt: Optional[datetime] = None
     status: Optional[str] = None
-    cipher: Optional[str] = None               # ← оставили один раз
+    cipher: Optional[str] = None
     change: Optional[int] = None
     version: Optional[int] = None
 
-    # --- файлы и названия ---
     documentFileId: Optional[str] = None  
     name: Optional[str] = None  
     sectionName: Optional[str] = None
     labelName: Optional[str] = None
 
-    # --- календарные поля ---
     vprPlanningDate: Optional[date] = None
     vprExactDate: Optional[date] = None
     expectedApprovalDate: Optional[date] = None
@@ -30,21 +27,18 @@ class DocContentModel(BaseModel):
     sendToWorkContractorDate: Optional[date] = None
     transferForReworkDate: Optional[date] = None
 
-    # --- экспертиза ---
     expertiseConclusionNumber: Optional[str] = None
     expertiseDate: Optional[date] = None
     expertOpinionId: Optional[str] = None
 
-    # --- метаданные проекта ---
     projectId: str
     qrFileId: Optional[str] = None
     extension: Optional[str] = None
     xsdDocumentType: Optional[str] = None
 
-    # --- числовые / флаговые ---
     delay: Optional[int] = None
     remarkCount: Optional[int] = 0
-    designerRemarks: Optional[int] = None  # ⬅️ добавили default=None
+    designerRemarks: Optional[int] = None
 
     hasRequestChangeIndicator: bool = False
     needActionIndicator: bool = False
@@ -52,7 +46,6 @@ class DocContentModel(BaseModel):
     noteActionIndicator: bool = False
     toDelegateIndicator: bool = False
 
-    # --- ответственность ---
     responsibleEmployeeUserId: Optional[str] = None  
     organizationId: Optional[str] = None  
     initiatorUserId: Optional[str] = None  
@@ -60,19 +53,17 @@ class DocContentModel(BaseModel):
     authorMemberId: Optional[str] = None  
     authorMemberName: Optional[str] = None  
 
-    # --- прочее ---
     note: Optional[str] = ''
-    exploItStatus: Optional[str] = None     # ⬅️ default=None
+    exploItStatus: Optional[str] = None
 
     authorMemberId: Optional[str] = None
     authorMemberName: Optional[str] = None
     exploItStatus: Optional[str] = None
 
-    # --- настройки Pydantic v2 ---
     model_config = ConfigDict(
-        orm_mode=True,
-        extra="ignore",          # игнорируем неожиданные ключи
-        populate_by_name=True,   # можно подавать snake_case, если нужно
+        from_attributes=True,
+        extra="ignore",
+        populate_by_name=True,
     )
 
 class DocModel(BaseModel):
