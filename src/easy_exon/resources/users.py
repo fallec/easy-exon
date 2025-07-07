@@ -13,3 +13,7 @@ class UsersResource:
     def put(self, new_user: dict) -> List[UserModel]:
         data = self._client.put(f"/api/users-service/users", json=new_user)
         return UserModel.model_validate(data)
+
+    def me(self) -> UserModel:
+        data = self._client.get(f"/api/users-service/users/current")
+        return UserModel.model_validate(data)

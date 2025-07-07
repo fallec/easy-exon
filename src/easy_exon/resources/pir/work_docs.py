@@ -1,5 +1,3 @@
-from typing import List
-
 from ...models.pir.work_doc import WorkDocModel
 
 

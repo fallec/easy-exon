@@ -1,5 +1,3 @@
-from typing import List
-
 from ...models.sk.registry import RegistryResponseModel
 
 class RegistriesResource:
