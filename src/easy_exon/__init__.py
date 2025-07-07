@@ -7,7 +7,6 @@ from .resources.users import UsersResource
 from .resources.organizations import OrganizationsResource
 from .resources.objects import ObjectsResource
 
-#sk
 from .resources.sk.documents import DocumentsResource
 from .resources.sk.inspections import InspectionsResource
 from .resources.sk.journals import JournalsResource
@@ -27,7 +26,8 @@ from .resources.itd.schemas import SchemasResource
 from .resources.itd.tasks import TasksResource
 
 #pir
-from .resources.pir.work_docs import DocsResource
+from .resources.pir.project_work_docs import ProjectDocsResource
+from .resources.pir.work_docs import WorkDocsResource
 
 
 BASE_URL = "https://exon.exonproject.ru/"
@@ -61,6 +61,8 @@ class MyApiClient(BaseClient):
 
         #pir
         self.docs = DocsResource(self)
+        self.project_docs = ProjectDocsResource(self)
+        self.work_docs = WorkDocsResource(self)
 
 
 def get_token(username: str, password: str) -> str:

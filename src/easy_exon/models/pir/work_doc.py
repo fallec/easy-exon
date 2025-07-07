@@ -4,8 +4,9 @@ from typing import Optional, List
 from pydantic import BaseModel, ConfigDict
 
 
-class DocContentModel(BaseModel):
+class WorkDocContentModel(BaseModel):
     id: str
+
     sectionId: Optional[str] = None
     changeSetId: Optional[str] = None
     createdAt: Optional[datetime] = None
@@ -66,9 +67,9 @@ class DocContentModel(BaseModel):
         populate_by_name=True,
     )
 
-class DocModel(BaseModel):
-    content: List[DocContentModel]
-    pageNum: int
-    pageCount: int
-    pageSize: int
-    totalSize: int
+class WorkDocModel(BaseModel):
+    content: List[WorkDocContentModel]
+    pageNum: Optional[int] = None
+    pageCount: Optional[int] = None
+    pageSize: Optional[int] = None
+    totalSize: Optional[int] = None
