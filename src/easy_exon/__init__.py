@@ -4,7 +4,8 @@ from .client import BaseClient
 from .exceptions import TokenError
 from .resources.objects import ObjectsResource
 from .resources.isr.csgs import CsgsResource
-from .resources.pir.work_docs import DocsResource
+from .resources.pir.work_docs import WorkDocsResource
+from .resources.pir.project_work_docs import ProjectDocsResource
 from .resources.isr.works import WorksResource
 from .resources.sk.inspections import InspectionsResource
 from .resources.sk.remarks import RemarksResource
@@ -33,7 +34,8 @@ class MyApiClient(BaseClient):
         self.organizations = OrganizationsResource(self)
         self.users = UsersResource(self)
         self.acts = ActsResource(self)
-        self.docs = DocsResource(self)
+        self.work_docs = WorkDocsResource(self)
+        self.project_docs = ProjectDocsResource(self)
 
 
 def get_token(username: str, password: str) -> str:
