@@ -7,11 +7,8 @@ from .resources.users import UsersResource
 from .resources.organizations import OrganizationsResource
 from .resources.objects import ObjectsResource
 
-from .resources.sk.documents import DocumentsResource
-from .resources.sk.inspections import InspectionsResource
-from .resources.sk.journals import JournalsResource
-from .resources.sk.registries import RegistriesResource
-from .resources.sk.remarks import RemarksResource
+#act
+from .resources.act.estimates import EstimatesResource
 
 #isr
 from .resources.isr.csgs import CsgsResource
@@ -30,6 +27,13 @@ from .resources.itd.tasks import TasksResource
 from .resources.pir.project_work_docs import ProjectDocsResource
 from .resources.pir.work_docs import WorkDocsResource
 
+#sk
+from .resources.sk.documents import DocumentsResource
+from .resources.sk.inspections import InspectionsResource
+from .resources.sk.journals import JournalsResource
+from .resources.sk.registries import RegistriesResource
+from .resources.sk.remarks import RemarksResource
+
 
 BASE_URL = "https://exon.exonproject.ru/"
 
@@ -41,12 +45,8 @@ class MyApiClient(BaseClient):
         self.organizations = OrganizationsResource(self)
         self.objects = ObjectsResource(self)
 
-        #sk
-        self.documents = DocumentsResource(self)
-        self.inspections = InspectionsResource(self)
-        self.journals = JournalsResource(self)
-        self.registries = RegistriesResource(self)
-        self.remarks = RemarksResource(self)
+        #act
+        self.estimates = EstimatesResource(self)
 
         #isr
         self.csgs = CsgsResource(self)
@@ -64,6 +64,13 @@ class MyApiClient(BaseClient):
         #pir
         self.project_docs = ProjectDocsResource(self)
         self.work_docs = WorkDocsResource(self)
+
+        #sk
+        self.documents = DocumentsResource(self)
+        self.inspections = InspectionsResource(self)
+        self.journals = JournalsResource(self)
+        self.registries = RegistriesResource(self)
+        self.remarks = RemarksResource(self)
 
 
 def get_token(username: str, password: str) -> str:
