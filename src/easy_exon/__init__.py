@@ -19,6 +19,7 @@ from .resources.isr.works import WorksResource
 
 #itd
 from .resources.itd.acts import ActsResource
+from .resources.itd.general_journals import GeneralJournalsResource
 from .resources.itd.materials import MaterialsResource
 from .resources.itd.ojrs import OjrsResource
 from .resources.itd.orders import OrdersResource
@@ -53,6 +54,7 @@ class MyApiClient(BaseClient):
 
         #itd
         self.acts = ActsResource(self)
+        self.general_journals = GeneralJournalsResource(self)
         self.materials = MaterialsResource(self)
         self.ojrs = OjrsResource(self)
         self.orders = OrdersResource(self)
