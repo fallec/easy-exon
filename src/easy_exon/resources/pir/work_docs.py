@@ -1,6 +1,6 @@
 from typing import List
 
-from ..models.doc import DocModel
+from ...models.pir.work_doc import DocModel
 
 
 EMPTY_FILTER_DOCS = {
