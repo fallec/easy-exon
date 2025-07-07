@@ -5,7 +5,7 @@ class OrdersResource:
     def __init__(self, client):
         self._client = client
 
-    def list(self, organization_id, project_id, user_id) -> OrdersPackageModel:
+    def get(self, organization_id, project_id, user_id) -> OrdersPackageModel:
         filters = {
             "organizationId": organization_id,
             "projectId": project_id,
