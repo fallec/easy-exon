@@ -34,6 +34,7 @@ from .resources.pir.expertises import ExpertiseResource
 from .resources.pir.project_work_docs import ProjectDocsResource
 from .resources.pir.VPR_docs import VPRDocsResource
 from .resources.pir.work_docs import WorkDocsResource
+from .resources.pir.work_extras import WorkExtrasResource
 
 #sk
 from .resources.sk.documents import DocumentsResource
@@ -80,6 +81,7 @@ class MyApiClient(BaseClient):
         self.pir_project_docs = ProjectDocsResource(self)
         self.pir_vpr_docs = VPRDocsResource(self)
         self.pir_work_docs = WorkDocsResource(self)
+        self.work_extra = WorkExtrasResource(self)
 
         #sk
         self.sk_documents = DocumentsResource(self)
