@@ -124,7 +124,7 @@ class BuildingInfo(BaseModel):
 
 
 class TitlePage(BaseModel):
-    id: str
+    id: Optional[str] = None
 
     generalInformation: Optional[GeneralInformation] = None
     developerInfo: Optional[ParticipantsBlock] = None

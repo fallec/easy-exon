@@ -52,4 +52,4 @@ class VPRDocModel(BaseModel):
     class Config:
         from_attributes = True
         alias_generator = lambda s: s
-        allow_population_by_field_name = True
+        validate_by_name = True

@@ -14,8 +14,8 @@ class MaterialModel(BaseModel):
 
     typeOfControls: Optional[List[str]] = None
     name: Optional[str] = None
-    amount: Optional[int] = None
-    remainingAmount: Optional[int] = None
+    amount: Optional[float] = None
+    remainingAmount: Optional[float] = None
     dpkList: Optional[List[str]] = None
     deviations: Optional[bool] = None
     number: Optional[int] = None

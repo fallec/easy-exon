@@ -9,6 +9,7 @@ from .resources.objects import ObjectsResource
 
 #act
 from .resources.act.estimates import EstimatesResource
+from .resources.act.certificates import CertificatesResource
 
 #isr
 from .resources.isr.csgs import CsgsResource
@@ -25,8 +26,8 @@ from .resources.itd.tasks import TasksResource
 
 #pir
 from .resources.pir.project_work_docs import ProjectDocsResource
-from .resources.pir.work_docs import WorkDocsResource
 from .resources.pir.VPR_docs import VPRDocsResource
+from .resources.pir.work_docs import WorkDocsResource
 
 #sk
 from .resources.sk.documents import DocumentsResource
@@ -48,6 +49,7 @@ class MyApiClient(BaseClient):
 
         #act
         self.estimates = EstimatesResource(self)
+        self.certificates = CertificatesResource(self)
 
         #isr
         self.csgs = CsgsResource(self)
@@ -64,8 +66,8 @@ class MyApiClient(BaseClient):
 
         #pir
         self.project_docs = ProjectDocsResource(self)
-        self.work_docs = WorkDocsResource(self)
         self.VPR_docs = VPRDocsResource(self)
+        self.work_docs = WorkDocsResource(self)
 
         #sk
         self.documents = DocumentsResource(self)
