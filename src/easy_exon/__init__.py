@@ -30,6 +30,7 @@ from .resources.otitb.documents import CheckingDocumentsResource
 from .resources.otitb.journals import JournalElementsResource
 
 #pir
+from .resources.pir.expertises import ExpertiseResource
 from .resources.pir.project_work_docs import ProjectDocsResource
 from .resources.pir.VPR_docs import VPRDocsResource
 from .resources.pir.work_docs import WorkDocsResource
@@ -75,6 +76,7 @@ class MyApiClient(BaseClient):
         self.otitb_journals = JournalElementsResource(self)
 
         #pir
+        self.pir_expertise = ExpertiseResource(self)
         self.pir_project_docs = ProjectDocsResource(self)
         self.pir_vpr_docs = VPRDocsResource(self)
         self.pir_work_docs = WorkDocsResource(self)
