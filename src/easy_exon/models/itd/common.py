@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 class SupportDocumentModel(BaseModel):
-    fileId: str
+    fileId: Optional[str] = None
 
     date: Optional[str] = None
     documentName: Optional[str] = None
