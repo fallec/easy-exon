@@ -1,6 +1,6 @@
 from typing import List
 
-from ...models.pir.VPR_doc import VPRDocModel
+from ...models.pir.vpr_doc import VPRDocModel
 
 class VPRDocsResource:
     def __init__(self, client):
