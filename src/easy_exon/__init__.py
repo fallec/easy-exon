@@ -24,6 +24,11 @@ from .resources.itd.orders import OrdersResource
 from .resources.itd.schemas import SchemasResource
 from .resources.itd.tasks import TasksResource
 
+#otitb
+from .resources.otitb.acts import CheckingActsResource
+from .resources.otitb.documents import CheckingDocumentsResource
+from .resources.otitb.journals import JournalElementsResource
+
 #pir
 from .resources.pir.project_work_docs import ProjectDocsResource
 from .resources.pir.VPR_docs import VPRDocsResource
@@ -48,33 +53,38 @@ class MyApiClient(BaseClient):
         self.objects = ObjectsResource(self)
 
         #act
-        self.estimates = EstimatesResource(self)
-        self.certificates = CertificatesResource(self)
+        self.act_estimates = EstimatesResource(self)
+        self.act_certificates = CertificatesResource(self)
 
         #isr
-        self.csgs = CsgsResource(self)
-        self.works = WorksResource(self)
+        self.isr_csgs = CsgsResource(self)
+        self.isr_works = WorksResource(self)
 
         #itd
-        self.acts = ActsResource(self)
-        self.general_journals = GeneralJournalsResource(self)
-        self.materials = MaterialsResource(self)
-        self.ojrs = OjrsResource(self)
-        self.orders = OrdersResource(self)
-        self.schemas = SchemasResource(self)
-        self.tasks = TasksResource(self)
+        self.itd_acts = ActsResource(self)
+        self.itd_general_journals = GeneralJournalsResource(self)
+        self.itd_materials = MaterialsResource(self)
+        self.itd_ojrs = OjrsResource(self)
+        self.itd_orders = OrdersResource(self)
+        self.itd_schemas = SchemasResource(self)
+        self.itd_tasks = TasksResource(self)
+
+        #otitb
+        self.otitb_acts = CheckingActsResource(self)
+        self.otitb_documents = CheckingDocumentsResource(self)
+        self.otitb_journals = JournalElementsResource(self)
 
         #pir
-        self.project_docs = ProjectDocsResource(self)
-        self.VPR_docs = VPRDocsResource(self)
-        self.work_docs = WorkDocsResource(self)
+        self.pir_project_docs = ProjectDocsResource(self)
+        self.pir_vpr_docs = VPRDocsResource(self)
+        self.pir_work_docs = WorkDocsResource(self)
 
         #sk
-        self.documents = DocumentsResource(self)
-        self.inspections = InspectionsResource(self)
-        self.journals = JournalsResource(self)
-        self.registries = RegistriesResource(self)
-        self.remarks = RemarksResource(self)
+        self.sk_documents = DocumentsResource(self)
+        self.sk_inspections = InspectionsResource(self)
+        self.sk_journals = JournalsResource(self)
+        self.sk_registries = RegistriesResource(self)
+        self.sk_remarks = RemarksResource(self)
 
 
 def get_token(username: str, password: str) -> str:
