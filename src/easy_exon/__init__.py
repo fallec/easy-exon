@@ -26,6 +26,7 @@ from .resources.itd.tasks import TasksResource
 #pir
 from .resources.pir.project_work_docs import ProjectDocsResource
 from .resources.pir.work_docs import WorkDocsResource
+from .resources.pir.VPR_docs import VPRDocsResource
 
 #sk
 from .resources.sk.documents import DocumentsResource
@@ -64,6 +65,7 @@ class MyApiClient(BaseClient):
         #pir
         self.project_docs = ProjectDocsResource(self)
         self.work_docs = WorkDocsResource(self)
+        self.VPR_docs = VPRDocsResource(self)
 
         #sk
         self.documents = DocumentsResource(self)
