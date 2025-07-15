@@ -2,7 +2,7 @@ import requests
 from .exceptions import ApiError
 
 class BaseClient:
-    def __init__(self, base_url: str, token: str = None, timeout: int = 10):
+    def __init__(self, base_url: str, token: str = None, timeout: int = 300):
         self.base_url = base_url.rstrip('/')
         self.session = requests.Session()
         self.session.headers.update({"Accept": "application/json"})

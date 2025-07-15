@@ -52,8 +52,8 @@ class ReferenceModel(BaseModel):
 
 
 class LocationModel(BaseModel):
-    geoLat: float
-    geoLon: float
+    geoLat: Optional[float] = None
+    geoLon: Optional[float] = None
 
 
 class MemberUserModel(BaseModel):

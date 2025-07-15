@@ -100,7 +100,7 @@ class GeneralInformation(BaseModel):
     buildingType: Optional[str] = None
     objectName: Optional[str] = None
     dateInterval: Optional[DateInterval] = None
-    constructionLicense: Optional[str] = None
+    constructionLicense: Optional[Any] = None
     hasRemarks: Optional[bool] = None
     titlePageNumber: Optional[int] = None
 
