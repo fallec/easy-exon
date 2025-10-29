@@ -133,6 +133,8 @@ class ProjectModel(BaseModel):
     gisOgdSyncStatus: Optional[str] = None
     gis: Optional[bool] = None
 
+    permanentObjectUIN: Optional[str] = None
+
     model_config = {
         "populate_by_name": True,
         "str_max_length": 5000,

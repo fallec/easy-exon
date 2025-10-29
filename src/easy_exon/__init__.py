@@ -68,7 +68,7 @@ from .resources.sk.remarks import RemarksResource
 
 __all__ = ["MyApiClient", "get_token"]
 
-BASE_URL: str = "https://exon.exonproject.ru/"
+BASE_URL: str = "https://suid.mos.ru/"
 
 
 class MyApiClient(BaseClient):
@@ -85,7 +85,7 @@ class MyApiClient(BaseClient):
     """
 
 
-    def __init__(self, base_url: str = BASE_URL, token: str | None = None):
+    def __init__(self, token: str, base_url: str = BASE_URL):
         super().__init__(base_url, token)
 
         self.users                  = UsersResource(self)
